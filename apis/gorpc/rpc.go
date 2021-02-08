@@ -1,8 +1,8 @@
 package gorpc
 
 import (
-	"github.com/red_envelope/infra"
-	"github.com/red_envelope/infra/base"
+	"github.com/ABottomCoder/infra"
+	"github.com/ABottomCoder/infra/base"
 )
 
 type GoRpcApiStarter struct {
@@ -12,4 +12,3 @@ type GoRpcApiStarter struct {
 func (g *GoRpcApiStarter) Init(ctx infra.StarterContext) {
 	base.RpcRegister(new(EnvelopeRpc))
 }
-

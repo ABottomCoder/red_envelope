@@ -3,13 +3,12 @@ package envelopes
 import (
 	"context"
 	"errors"
+	"github.com/ABottomCoder/infra/base"
+	"github.com/red_envelope/services"
 	"github.com/shopspring/decimal"
 	log "github.com/sirupsen/logrus"
 	"sync"
-	"github.com/red_envelope/infra/base"
-	"github.com/red_envelope/services"
 )
-
 
 var once sync.Once
 
@@ -129,5 +128,3 @@ func (r *redEnvelopeService) ListItems(envelopeNo string) (items []*services.Red
 	domain := itemDomain{}
 	return domain.FindItems(envelopeNo)
 }
-
-

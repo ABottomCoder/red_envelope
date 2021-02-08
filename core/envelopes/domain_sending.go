@@ -2,13 +2,12 @@ package envelopes
 
 import (
 	"context"
+	"github.com/ABottomCoder/infra/base"
+	"github.com/red_envelope/core/accounts"
+	"github.com/red_envelope/services"
 	"github.com/tietang/dbx"
 	"path"
-	"github.com/red_envelope/core/accounts"
-	"github.com/red_envelope/infra/base"
-	"github.com/red_envelope/services"
 )
-
 
 //发红包业务领域代码
 func (d *goodsDomain) SendOut(
@@ -91,7 +90,3 @@ func (d *goodsDomain) SendOut(
 
 	return activity, err
 }
-
-
-
-

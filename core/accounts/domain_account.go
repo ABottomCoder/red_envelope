@@ -3,12 +3,12 @@ package accounts
 import (
 	"context"
 	"errors"
+	"github.com/ABottomCoder/infra/base"
+	"github.com/red_envelope/services"
 	"github.com/segmentio/ksuid"
 	"github.com/shopspring/decimal"
 	"github.com/sirupsen/logrus"
 	"github.com/tietang/dbx"
-	"github.com/red_envelope/infra/base"
-	"github.com/red_envelope/services"
 )
 
 //有状态的，每次使用时都要实例化
@@ -20,7 +20,6 @@ type accountDomain struct {
 func NewAccountDomain() *accountDomain {
 	return new(accountDomain)
 }
-
 
 //创建logNo 的逻辑
 func (domain *accountDomain) createAccountLogNo() {
@@ -252,4 +251,3 @@ func (a *accountDomain) GetAccountLogByTradeNo(tradeNo string) *services.Account
 	}
 	return log.ToDTO()
 }
-

@@ -1,9 +1,9 @@
 package services
 
 import (
+	"github.com/ABottomCoder/infra/base"
 	"github.com/shopspring/decimal"
 	"time"
-	"github.com/red_envelope/infra/base"
 )
 
 var IAccountService AccountService
@@ -96,4 +96,3 @@ type AccountLogDTO struct {
 	Decs            string          //交易描述
 	CreatedAt       time.Time       //创建时间
 }
-

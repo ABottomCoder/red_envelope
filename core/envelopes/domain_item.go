@@ -2,10 +2,10 @@ package envelopes
 
 import (
 	"context"
+	"github.com/ABottomCoder/infra/base"
+	"github.com/red_envelope/services"
 	"github.com/segmentio/ksuid"
 	"github.com/tietang/dbx"
-	"github.com/red_envelope/infra/base"
-	"github.com/red_envelope/services"
 )
 
 type itemDomain struct {
@@ -100,4 +100,3 @@ func (d *itemDomain) FindItems(envelopeNo string) (itemDtos []*services.RedEnvel
 	luckItem.IsLuckiest = true
 	return itemDtos
 }
-

@@ -4,15 +4,14 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"github.com/ABottomCoder/infra/algo"
+	"github.com/ABottomCoder/infra/base"
+	"github.com/red_envelope/core/accounts"
+	"github.com/red_envelope/services"
 	"github.com/shopspring/decimal"
 	log "github.com/sirupsen/logrus"
 	"github.com/tietang/dbx"
-	"github.com/red_envelope/core/accounts"
-	"github.com/red_envelope/infra/algo"
-	"github.com/red_envelope/infra/base"
-	"github.com/red_envelope/services"
 )
-
 
 var multiple = decimal.NewFromFloat(100.0)
 
@@ -145,4 +144,3 @@ func (d *goodsDomain) nextAmount(goods *RedEnvelopeGoods) (amount decimal.Decima
 	}
 	return amount
 }
-

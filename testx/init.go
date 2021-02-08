@@ -1,10 +1,10 @@
 package testx
 
 import (
+	"github.com/ABottomCoder/infra"
+	"github.com/ABottomCoder/infra/base"
 	"github.com/tietang/props/ini"
 	"github.com/tietang/props/kvs"
-	"github.com/red_envelope/infra"
-	"github.com/red_envelope/infra/base"
 )
 
 func init() {
@@ -24,4 +24,3 @@ func init() {
 	app := infra.New(conf)
 	app.Start()
 }
-

@@ -3,10 +3,10 @@ package accounts
 import (
 	"errors"
 	"fmt"
+	"github.com/ABottomCoder/infra/base"
+	"github.com/red_envelope/services"
 	"github.com/shopspring/decimal"
 	"sync"
-	"github.com/red_envelope/infra/base"
-	"github.com/red_envelope/services"
 )
 
 var _ services.AccountService = new(accountService)
@@ -109,4 +109,3 @@ func (a *accountService) GetAccount(accountNo string) *services.AccountDTO {
 	domain := accountDomain{}
 	return domain.GetAccount(accountNo)
 }
-

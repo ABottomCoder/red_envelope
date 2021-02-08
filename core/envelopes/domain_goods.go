@@ -2,13 +2,13 @@ package envelopes
 
 import (
 	"context"
+	"github.com/ABottomCoder/infra/base"
+	"github.com/red_envelope/services"
 	"github.com/segmentio/ksuid"
 	"github.com/shopspring/decimal"
 	"github.com/sirupsen/logrus"
 	"github.com/tietang/dbx"
 	"time"
-	"github.com/red_envelope/infra/base"
-	"github.com/red_envelope/services"
 )
 
 type goodsDomain struct {
@@ -74,4 +74,3 @@ func (d *goodsDomain) Get(envelopeNo string) (goods *RedEnvelopeGoods) {
 	}
 	return goods
 }
-

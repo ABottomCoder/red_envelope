@@ -2,13 +2,13 @@ package jobs
 
 import (
 	"fmt"
+	"github.com/ABottomCoder/infra"
 	"github.com/go-redsync/redsync"
 	"github.com/gomodule/redigo/redis"
+	"github.com/red_envelope/core/envelopes"
 	log "github.com/sirupsen/logrus"
 	"github.com/tietang/go-utils"
 	"time"
-	"github.com/red_envelope/core/envelopes"
-	"github.com/red_envelope/infra"
 )
 
 type RefundExpiredJobStarter struct {
@@ -74,4 +74,3 @@ func (r *RefundExpiredJobStarter) Start(ctx infra.StarterContext) {
 func (r *RefundExpiredJobStarter) Stop(ctx infra.StarterContext) {
 	r.ticker.Stop()
 }
-

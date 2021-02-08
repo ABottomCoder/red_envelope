@@ -2,14 +2,14 @@ package accounts
 
 import (
 	"database/sql"
+	"github.com/ABottomCoder/infra/base"
+	_ "github.com/red_envelope/testx"
 	"github.com/segmentio/ksuid"
 	"github.com/shopspring/decimal"
 	"github.com/sirupsen/logrus"
 	. "github.com/smartystreets/goconvey/convey"
 	"github.com/tietang/dbx"
 	"testing"
-	"github.com/red_envelope/infra/base"
-	_ "github.com/red_envelope/testx"
 )
 
 func TestAccountDao_GetOne(t *testing.T) {
