@@ -24,7 +24,6 @@ func NewAccountDomain() *accountDomain {
 //创建logNo 的逻辑
 func (domain *accountDomain) createAccountLogNo() {
 	//暂时采用ksuid的ID生成策略来创建No
-	//后期会优化成可读性比较好的，分布式ID
 	//全局唯一的ID
 	domain.accountLog.LogNo = ksuid.New().Next().String()
 }
