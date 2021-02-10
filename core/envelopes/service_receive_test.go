@@ -1,29 +1,30 @@
 package envelopes
 
 import (
+	acservices "github.com/ABottomCoder/account/services"
+	"github.com/red_envelope/services"
 	"github.com/segmentio/ksuid"
 	"github.com/shopspring/decimal"
 	"github.com/sirupsen/logrus"
 	. "github.com/smartystreets/goconvey/convey"
 	"strconv"
 	"testing"
-	"github.com/red_envelope/services"
 )
 
 func TestRedEnvelopeService_Receive(t *testing.T) {
 	//1. 准备几个红包资金账户，用于发红包和收红包
-	accountService := services.GetAccountService()
+	accountService := acservices.GetAccountService()
 
 	Convey("收红包测试用例", t, func() {
-		accounts := make([]*services.AccountDTO, 0)
+		accounts := make([]*acservices.AccountDTO, 0)
 		size := 10
 		for i := 0; i < size; i++ {
-			account := services.AccountCreatedDTO{
+			account := acservices.AccountCreatedDTO{
 				UserId:       ksuid.New().Next().String(),
 				Username:     "测试用户" + strconv.Itoa(i+1),
 				Amount:       "2000",
 				AccountName:  "测试账户" + strconv.Itoa(i+1),
-				AccountType:  int(services.EnvelopeAccountType),
+				AccountType:  int(acservices.EnvelopeAccountType),
 				CurrencyCode: "CNY",
 			}
 			//账户创建
@@ -128,21 +129,20 @@ func TestRedEnvelopeService_Receive(t *testing.T) {
 
 }
 
-
 func TestRedEnvelopeService_Receive_Failure(t *testing.T) {
 	//1. 准备几个红包资金账户，用于发红包和收红包
-	accountService := services.GetAccountService()
+	accountService := acservices.GetAccountService()
 
 	Convey("收红包测试用例", t, func() {
-		accounts := make([]*services.AccountDTO, 0)
+		accounts := make([]*acservices.AccountDTO, 0)
 		size := 5
 		for i := 0; i < size; i++ {
-			account := services.AccountCreatedDTO{
+			account := acservices.AccountCreatedDTO{
 				UserId:       ksuid.New().Next().String(),
 				Username:     "测试用户" + strconv.Itoa(i+1),
 				Amount:       "100",
 				AccountName:  "测试账户" + strconv.Itoa(i+1),
-				AccountType:  int(services.EnvelopeAccountType),
+				AccountType:  int(acservices.EnvelopeAccountType),
 				CurrencyCode: "CNY",
 			}
 			//账户创建
@@ -206,7 +206,7 @@ func TestRedEnvelopeService_Receive_Failure(t *testing.T) {
 						b := decimal.NewFromFloat(100)
 						b = b.Sub(decimal.NewFromFloat(10))
 						b = b.Add(item.Amount)
-						logrus.Info("this is receive account , " , a.Balance.String(), b.String())
+						logrus.Info("this is receive account , ", a.Balance.String(), b.String())
 						So(a.Balance.String(), ShouldEqual, b.String())
 						sendingAmount = item.Amount
 					} else {
@@ -234,4 +234,3 @@ func TestRedEnvelopeService_Receive_Failure(t *testing.T) {
 	})
 
 }
-

@@ -17,5 +17,4 @@ func main() {
 	base.InitLog(conf)
 	app := infra.New(conf)
 	app.Start()
-
 }

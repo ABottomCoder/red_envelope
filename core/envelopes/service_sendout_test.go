@@ -1,23 +1,24 @@
 package envelopes
 
 import (
+	acservices "github.com/ABottomCoder/account/services"
+	"github.com/red_envelope/services"
+	_ "github.com/red_envelope/testx"
 	"github.com/segmentio/ksuid"
 	"github.com/shopspring/decimal"
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"
-	"github.com/red_envelope/services"
-	_ "github.com/red_envelope/testx"
 )
 
 func TestRedEnvelopeService_SendOut(t *testing.T) {
 	//发红包人的红包资金账户
-	ac := services.GetAccountService()
-	account := services.AccountCreatedDTO{
+	ac := acservices.GetAccountService()
+	account := acservices.AccountCreatedDTO{
 		UserId:       ksuid.New().Next().String(),
 		Username:     "测试用户",
 		Amount:       "2021",
 		AccountName:  "测试账户",
-		AccountType:  int(services.EnvelopeAccountType),
+		AccountType:  int(acservices.EnvelopeAccountType),
 		CurrencyCode: "CNY",
 	}
 	re := services.GetRedEnvelopeService()
@@ -76,16 +77,15 @@ func TestRedEnvelopeService_SendOut(t *testing.T) {
 
 }
 
-
 func TestRedEnvelopeService_SendOut_Failure(t *testing.T) {
 	//发红包人的红包资金账户
-	ac := services.GetAccountService()
-	account := services.AccountCreatedDTO{
+	ac := acservices.GetAccountService()
+	account := acservices.AccountCreatedDTO{
 		UserId:       ksuid.New().Next().String(),
 		Username:     "测试用户A",
 		Amount:       "10",
 		AccountName:  "测试账户A",
-		AccountType:  int(services.EnvelopeAccountType),
+		AccountType:  int(acservices.EnvelopeAccountType),
 		CurrencyCode: "CNY",
 	}
 	re := services.GetRedEnvelopeService()
@@ -117,4 +117,3 @@ func TestRedEnvelopeService_SendOut_Failure(t *testing.T) {
 	})
 
 }
-
