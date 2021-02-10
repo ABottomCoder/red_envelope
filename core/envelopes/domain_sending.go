@@ -2,8 +2,9 @@ package envelopes
 
 import (
 	"context"
+	"github.com/ABottomCoder/account/core/accounts"
+	acservices "github.com/ABottomCoder/account/services"
 	"github.com/ABottomCoder/infra/base"
-	"github.com/red_envelope/core/accounts"
 	"github.com/red_envelope/services"
 	"github.com/tietang/dbx"
 	"path"
@@ -36,44 +37,44 @@ func (d *goodsDomain) SendOut(
 		//红包金额支付
 		//1. 需要红包中间商的红包资金账户，定义在配置文件中，事先初始化到资金账户表中
 		//2. 从红包发送人的资金账户中扣减红包金额 ，把红包金额从红包发送人的资金账户里扣除
-		body := services.TradeParticipator{
+		body := acservices.TradeParticipator{
 			AccountNo: goods.AccountNo,
 			UserId:    goods.UserId,
 			Username:  goods.Username,
 		}
 		systemAccount := base.GetSystemAccount()
-		target := services.TradeParticipator{
+		target := acservices.TradeParticipator{
 			AccountNo: systemAccount.AccountNo,
 			Username:  systemAccount.Username,
 			UserId:    systemAccount.UserId,
 		}
 
-		transfer := services.AccountTransferDTO{
+		transfer := acservices.AccountTransferDTO{
 			TradeBody:   body,
 			TradeTarget: target,
 			TradeNo:     d.EnvelopeNo,
 			Amount:      d.Amount,
-			ChangeType:  services.EnvelopeOutgoing,
-			ChangeFlag:  services.FlagTransferOut,
+			ChangeType:  acservices.EnvelopeOutgoing,
+			ChangeFlag:  acservices.FlagTransferOut,
 			Decs:        "红包金额支付",
 		}
 		status, err := accountDomain.TransferWithContextTx(ctx, transfer)
-		if status != services.TransferedStatusSuccess {
+		if status != acservices.TransferedStatusSuccess {
 			return err
 		}
 		//3. 将扣减的红包总金额转入红包中间商的红包资金账户
 		//入账
-		transfer = services.AccountTransferDTO{
+		transfer = acservices.AccountTransferDTO{
 			TradeBody:   target,
 			TradeTarget: body,
 			TradeNo:     d.EnvelopeNo,
 			Amount:      d.Amount,
-			ChangeType:  services.EnvelopeIncoming,
-			ChangeFlag:  services.FlagTransferIn,
+			ChangeType:  acservices.EnvelopeIncoming,
+			ChangeFlag:  acservices.FlagTransferIn,
 			Decs:        "红包金额转入",
 		}
 		status, err = accountDomain.TransferWithContextTx(ctx, transfer)
-		if status == services.TransferedStatusSuccess {
+		if status == acservices.TransferedStatusSuccess {
 			return nil
 		} else {
 			return err

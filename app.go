@@ -1,12 +1,12 @@
 package red_envelope
 
 import (
+	_ "github.com/ABottomCoder/account/core/accounts"
 	"github.com/ABottomCoder/infra"
 	"github.com/ABottomCoder/infra/base"
 	"github.com/red_envelope/apis/gorpc"
 	_ "github.com/red_envelope/apis/gorpc"
 	_ "github.com/red_envelope/apis/web"
-	_ "github.com/red_envelope/core/accounts"
 	_ "github.com/red_envelope/core/envelopes"
 	"github.com/red_envelope/jobs"
 )

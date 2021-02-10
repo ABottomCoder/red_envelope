@@ -3,6 +3,7 @@ package envelopes
 import (
 	"context"
 	"errors"
+	acservices "github.com/ABottomCoder/account/services"
 	"github.com/ABottomCoder/infra/base"
 	"github.com/red_envelope/services"
 	log "github.com/sirupsen/logrus"
@@ -79,31 +80,31 @@ func (e *ExpiredEnvelopeDomain) ExpiredOne(goods RedEnvelopeGoods) (err error) {
 	}
 	//调用资金账户接口进行转账
 	systemAccount := base.GetSystemAccount()
-	account := services.GetAccountService().GetEnvelopeAccountByUserId(goods.UserId)
+	account := acservices.GetAccountService().GetEnvelopeAccountByUserId(goods.UserId)
 	if account == nil {
 		return errors.New("没有找到该用户的红包资金账户:" + goods.UserId)
 	}
-	body := services.TradeParticipator{
+	body := acservices.TradeParticipator{
 		Username:  systemAccount.Username,
 		UserId:    systemAccount.UserId,
 		AccountNo: systemAccount.AccountNo,
 	}
-	target := services.TradeParticipator{
+	target := acservices.TradeParticipator{
 		Username:  account.Username,
 		UserId:    account.UserId,
 		AccountNo: account.AccountNo,
 	}
-	transfer := services.AccountTransferDTO{
+	transfer := acservices.AccountTransferDTO{
 		TradeBody:   body,
 		TradeTarget: target,
 		TradeNo:     refund.EnvelopeNo,
 		Amount:      goods.RemainAmount,
-		ChangeType:  services.EnvelopExpiredRefund,
-		ChangeFlag:  services.FlagTransferIn,
+		ChangeType:  acservices.EnvelopExpiredRefund,
+		ChangeFlag:  acservices.FlagTransferIn,
 		Decs:        "红包过期退款:" + goods.EnvelopeNo,
 	}
-	status, err := services.GetAccountService().Transfer(transfer)
-	if status != services.TransferedStatusSuccess {
+	status, err := acservices.GetAccountService().Transfer(transfer)
+	if status != acservices.TransferedStatusSuccess {
 		return err
 	}
 

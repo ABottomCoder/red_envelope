@@ -3,6 +3,7 @@ package envelopes
 import (
 	"context"
 	"errors"
+	acservices "github.com/ABottomCoder/account/services"
 	"github.com/ABottomCoder/infra/base"
 	"github.com/red_envelope/services"
 	"github.com/shopspring/decimal"
@@ -29,7 +30,7 @@ func (r *redEnvelopeService) SendOut(
 		return activity, err
 	}
 	//获取红包发送人的资金账户信息
-	account := services.GetAccountService().GetEnvelopeAccountByUserId(dto.UserId)
+	account := acservices.GetAccountService().GetEnvelopeAccountByUserId(dto.UserId)
 	if account == nil {
 		return nil, errors.New("用户账户不存在：" + dto.UserId)
 	}
@@ -60,7 +61,7 @@ func (r *redEnvelopeService) Receive(dto services.RedEnvelopeReceiveDTO) (item *
 		return nil, err
 	}
 	//获取当前收红包用户的账户信息
-	account := services.GetAccountService().GetEnvelopeAccountByUserId(dto.RecvUserId)
+	account := acservices.GetAccountService().GetEnvelopeAccountByUserId(dto.RecvUserId)
 	if account == nil {
 		return nil, errors.New("红包资金账户不存在：user_id=" + dto.RecvUserId)
 	}
