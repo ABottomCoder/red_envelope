@@ -1,7 +1,7 @@
 package services
 
 const (
-	DefaultBlessing = "别看了，你抢不到!"
+	DefaultBlessing   = "别看了，你抢不到!"
 	DefaultTimeFormat = "2006-01-02.15:04:05"
 )
 
@@ -34,15 +34,15 @@ const (
 type OrderStatus int
 
 const (
-	OrderCreate   OrderStatus = 1
-	OrderSending  OrderStatus = 2
-	OrderExpired  OrderStatus = 3
-	OrderDisabled OrderStatus = 4
+	OrderCreate                  OrderStatus = 1
+	OrderSending                 OrderStatus = 2
+	OrderExpired                 OrderStatus = 3
+	OrderDisabled                OrderStatus = 4
 	OrderExpiredRefundSuccessful OrderStatus = 5
 	OrderExpiredRefundFalured    OrderStatus = 6
 )
 
-//红包类型：普通红包，碰运气红包
+//红包类型：普通红包，随机红包
 type EnvelopeType int
 
 const (
@@ -54,5 +54,3 @@ var EnvelopeTypes = map[EnvelopeType]string{
 	GeneralEnvelopeType: "普通红包",
 	LuckyEnvelopeType:   "随机红包",
 }
-
-
