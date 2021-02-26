@@ -1,13 +1,12 @@
 package envelopes
 
 import (
+	"github.com/red_envelope/services"
 	"github.com/shopspring/decimal"
 	log "github.com/sirupsen/logrus"
 	"github.com/tietang/dbx"
 	"time"
-	"github.com/red_envelope/services"
 )
-
 
 type RedEnvelopeGoodsDao struct {
 	runner *dbx.TxRunner
@@ -80,7 +79,7 @@ func (dao *RedEnvelopeGoodsDao) FindExpired(
 	var goods []RedEnvelopeGoods
 	now := time.Now()
 	sql := " select * from red_envelope_goods " +
-		" where remain_quantity>0  and expired_at>? and status<>4 " +
+		" where remain_quantity>0  and expired_at<? and status<>4 " +
 		" limit ?,?"
 	err := dao.runner.Find(&goods, sql, now, offset, size)
 	if err != nil {
@@ -122,5 +121,3 @@ func (dao *RedEnvelopeGoodsDao) ListReceivable(offset, size int) []RedEnvelopeGo
 	}
 	return goods
 }
-
-

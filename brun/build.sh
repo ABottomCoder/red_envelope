@@ -6,7 +6,7 @@
 #export GOPATH=$GOPATH:${PROJECT_PATH}
 
 SOURCE_FILE_NAME=main
-TARGET_FILE_NAME=red_envelope
+TARGET_FILE_NAME=red_envelope_micro
 
 rm -fr ${TARGET_FILE_NAME}*
 
