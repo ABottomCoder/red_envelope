@@ -21,6 +21,9 @@ func (e *EnvelopeApi) Init() {
 	groupRouter.Post("/sendout", e.sendOutHandler)
 	groupRouter.Post("/receive", e.receiveHandler)
 
+	groupRouter.Get("/getReceived", e.getReceivedHandler)
+	groupRouter.Get("/getReceivable", e.getReceivableHandler)
+
 }
 
 func (e *EnvelopeApi) receiveHandler(ctx iris.Context) {
@@ -76,4 +79,39 @@ func (e *EnvelopeApi) sendOutHandler(ctx iris.Context) {
 	r.Data = activity
 	ctx.JSON(r)
 
+}
+
+func (e *EnvelopeApi) getReceivedHandler(ctx iris.Context) {
+	userId := ctx.URLParam("userId")
+	page, err1 := ctx.URLParamInt("page")
+	size, err2 := ctx.URLParamInt("size")
+	r := base.Res{
+		Code: base.ResCodeOk,
+	}
+	if userId == "" || err1 != nil || err2 != nil {
+		r.Code = base.ResCodeRequestParamsError
+		r.Message = "参数错误"
+		ctx.JSON(&r)
+		return
+	}
+	items := e.service.ListReceived(userId, page, size)
+	r.Data = items
+	ctx.JSON(r)
+}
+
+func (e *EnvelopeApi) getReceivableHandler(ctx iris.Context) {
+	page, err1 := ctx.URLParamInt("page")
+	size, err2 := ctx.URLParamInt("size")
+	r := base.Res{
+		Code: base.ResCodeOk,
+	}
+	if err1 != nil || err2 != nil {
+		r.Code = base.ResCodeRequestParamsError
+		r.Message = "参数错误"
+		ctx.JSON(&r)
+		return
+	}
+	orders := e.service.ListReceivable(page, size)
+	r.Data = orders
+	ctx.JSON(r)
 }
